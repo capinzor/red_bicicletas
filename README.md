@@ -5,5 +5,6 @@
 ```
 npm install
 npm run start
+```
 
 ## Esta es una bienvenida al aprendizaje de express
