@@ -22,7 +22,7 @@ exports.bicycle_update_get = function (req, res) {
 }
 
 exports.bicycle_update_post = function (req, res) {
-    var bicy = Bicycle.findById(req.params.id);
+    var bicy = Bicycle.findById(req.params.id,fun);
     bicy.id=req.body.id;
     bicy.color=req.body.color
     bicy.model=req.body.model;

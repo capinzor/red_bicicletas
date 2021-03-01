@@ -21,3 +21,15 @@ exports.bicycle_delete = function (req, res) {
 
     res.status(204).send();
 }
+
+exports.bicycle_update = function (req, res) {
+    var bicy = Bicycle.findById(req.params.id);
+    bicy.id=req.body.id;
+    bicy.color=req.body.color
+    bicy.model=req.body.model;
+    bicy.location=[req.body.lat, req.body.lng];
+
+    res.status(200).json({ 
+        bicycle: bicy
+    });
+}
