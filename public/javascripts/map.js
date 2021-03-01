@@ -8,3 +8,15 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoiY2FwaW56b25yIiwiYSI6ImNrbGh6ajM2ZDJpcjEybnFlM2w4Mjd0dGgifQ.BqEhEUUYNh-QJlXeiu22VA'
 }).addTo(map);
+
+
+$.ajax({
+    dataType:"json",
+    url: "api/bicycles",
+    success: function (result) {
+        console.log(result);
+        result.bicycles.forEach(function(bicy){
+            L.marker(bicy.location, {title: bicy.id}).addTo(map);
+        });
+    }
+})
