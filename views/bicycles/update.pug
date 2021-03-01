@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+	a(href='/bicycles') Volver
+	br
+	br
+	br
+	h1 Actualizando Bicicleta
+	br
+	br
+
+	form(action=`/bicycles/${bicy.id}/update` method='post')
+		label(for='id') ID: 
+		input#id(type='text' name='id' value=bicy.id)
+		br
+		label(for='color') Color: 
+		input#id(type='text' name='color' value=bicy.color)
+		br
+		label(for='model') Modelo: 
+		input#id(type='text' name='model' value=bicy.model)
+		br
+		label(for='lat') Latitud: 
+		input#id(type='text' name='lat' value=bicy.location[0])
+		br
+		label(for='lng') Longitud: 
+		input#id(type='text' name='lng' value=bicy.location[1])
+		br
+		br
+		input.btn(type='submit' value='OK')
