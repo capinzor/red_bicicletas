@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www"
+    "devstart": "nodemon ./bin/www",
+    "test": "jasmine"
   },
   "dependencies": {
+    "agentkeepalive": "^4.1.4",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -15,6 +17,7 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
+    "jasmine": "^3.6.4",
     "nodemon": "^2.0.7"
   }
 }
