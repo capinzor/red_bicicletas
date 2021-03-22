@@ -8,9 +8,18 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bicyclesRouter = require('./routes/bicycles');
 var bicyclesAPIRouter = require('./routes/api/bicycles');
+var usersAPIRouter = require('./routes/api/users')
 
 
 var app = express();
+
+var mongoose = require('mongoose');
+
+var mongoDB = 'mongodb://localhost/red_bicycles';
+mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser:true});
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB conection error: '));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +35,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/bicycles', bicyclesRouter);
 app.use('/api/bicycles', bicyclesAPIRouter);
+app.use('/api/users', usersAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
