@@ -10,3 +10,4 @@ router.put('/:id/update', bicycleController.bicycle_update);
 router.post('/delete', bicycleController.bicycle_delete);
 
 module.exports = router;  
+
