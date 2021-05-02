@@ -6,7 +6,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.HOST + "/auth/google/callback"
+    callbackURL: "http://www.example.com/auth/google/callback"
 },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreateByGoogle(profile, function (err, user) {
