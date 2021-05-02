@@ -120,8 +120,8 @@ userSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition,
             let values = {};
             values.googleId = condition.id;
             values.email = condition.emails[0].value;
-            values.nombre = condition.displayName || 'SIN NOMBRE';
-            values.verificado = true;
+            values.name = condition.displayName || 'SIN NOMBRE';
+            values.verified = true;
             values.password = condition._json.sub;
             console.log('---------- VALUES ----------');
             console.log(values);
