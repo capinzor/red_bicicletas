@@ -105,7 +105,7 @@ userSchema.methods.resetPassword = function(password){
     });
 }
 
-UserSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition, callback) {
+userSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition, callback) {
     const self = this;
     console.log(condition);
     self.findOne({

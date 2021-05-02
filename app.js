@@ -150,9 +150,8 @@ app.use('/google202d337b8b2e724a',function (req,res) {
 });
 
 app.get('/auth/google',
-  passport.authenticate('google', { scope: [ 
-    'http://googleapis.com/auth/plus.login', 
-    'http://googleapis.com/auth/plus.profile.email.read' ] }
+  passport.authenticate('google', { scope:
+      [ 'email', 'profile' ] }
 ));
 
 app.get( '/auth/google/callback',
