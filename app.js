@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('./config/passport');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const jwt = require('jsonwebtoken')
 
 var indexRouter = require('./routes/index');
@@ -19,7 +20,19 @@ var authAPIRouter = require('./routes/api/auth')
 const User = require('./models/user');
 const Token = require('./models/token');
 
-const store = new session.MemoryStore;
+let store;
+if (process.env.NODE_ENV === 'development'){
+  store = new session.MemoryStore;
+}else{
+  store = new MongoDBStore({
+    uri: process.env.MONGO_URI,
+    collection: 'sessions'
+  });
+  store.on('error', function(error) {
+    assert.ifError(error);
+    assert.ok(false);
+  });
+}
 
 var app = express();
 
@@ -135,6 +148,17 @@ app.use('/privacy_policy',function (req,res) {
 app.use('/google202d337b8b2e724a',function (req,res) {
   res.sendFile('public/google202d337b8b2e724a.html');
 });
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope:
+      [ 'email', 'profile' ] }
+));
+
+app.get( '/auth/google/callback',
+    passport.authenticate( 'google', {
+        successRedirect: '/',
+        failureRedirect: '/error'
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

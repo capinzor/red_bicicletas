@@ -105,4 +105,32 @@ userSchema.methods.resetPassword = function(password){
     });
 }
 
+UserSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition, callback) {
+    const self = this;
+    console.log(condition);
+    self.findOne({
+        $or:[
+            {'googleId': condition.id}, {'email': condition.emails[0].value}
+    ]}, (err, result) => {
+        if (result) { // login
+            callback(err, result);
+        } else { // registro
+            console.log('---------- CONDITION ----------');
+            console.log(condition);
+            let values = {};
+            values.googleId = condition.id;
+            values.email = condition.emails[0].value;
+            values.nombre = condition.displayName || 'SIN NOMBRE';
+            values.verificado = true;
+            values.password = condition._json.sub;
+            console.log('---------- VALUES ----------');
+            console.log(values);
+            self.create(values, (err, result) => {
+                if (err) {console.log(err);}
+                return callback(err, result);
+            });
+        }
+    })
+};
+
 module.exports = mongoose.model('User', userSchema);
