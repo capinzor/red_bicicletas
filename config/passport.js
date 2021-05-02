@@ -4,14 +4,14 @@ const User = require('../models/user');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 passport.use(new GoogleStrategy({
-    clientID:     GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.HOST + "/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
+},
+  function(accessToken, refreshToken, profile, cb) {
     User.findOrCreateByGoogle(profile, function (err, user) {
-      return done(err, user);
-    });
+        return cb(err, user);
+      });
   }
 ));
 
